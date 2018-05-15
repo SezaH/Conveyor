@@ -13,21 +13,22 @@
 Encoder myEnc(5, 6);
 //   avoid using pins with LEDs attached
 
-void setup() {
+void setup()
+{
   Serial.begin(9600);
-  //Serial.println("Basic Encoder Test:");
 }
 
-long oldPosition  = -999;
 long const limit = 0x00100000;
 
-void loop(){
+void loop()
+{
   long newPosition = myEnc.read();
-   // newposition = (char *)myEnc.read(); 
- 
-   if(newPosition > limit){
-        newPosition -= limit;
-   }
-      //Serial.println(newPosition);
-   Serial.write((char*)newPosition, sizeof(newPosition));
- }
+
+  if (newPosition > limit)
+  {
+    newPosition -= limit;
+  }
+
+  //Serial.println(newPosition);
+  Serial.write((char *)newPosition, sizeof(newPosition));
+}
