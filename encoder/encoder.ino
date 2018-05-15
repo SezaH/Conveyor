@@ -10,7 +10,7 @@
 //   Best Performance: both pins have interrupt capability
 //   Good Performance: only the first pin has interrupt capability
 //   Low Performance:  neither pin has interrupt capability
-Encoder myEnc(5, 6);
+Encoder encoder(5, 6);
 //   avoid using pins with LEDs attached
 
 void setup()
@@ -18,19 +18,24 @@ void setup()
   Serial.begin(9600);
 }
 
-long const limit = 0x00100000;
+long const limit = 0x000001000; // 4096
+// long const limit = 0x00100000; // 2^20
 
 void loop()
 {
-  long newPosition = myEnc.read();
+  long newPosition = encoder.read();
 
   if (newPosition > limit)
   {
     newPosition -= limit;
+    encoder.write(newPosition);
   }
 
-  Serial.println(newPosition);
-  delay(50);
-  Serial.write((char *)newPosition, sizeof(long));
-  Serial.write('\n');
+  if (Serial.available())
+  {
+    while (Serial.read() > 0)
+      ;
+
+    Serial.println(newPosition, DEC);
+  }
 }
