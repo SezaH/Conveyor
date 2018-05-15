@@ -15,18 +15,19 @@ Encoder myEnc(5, 6);
 
 void setup() {
   Serial.begin(9600);
-  Serial.println("Basic Encoder Test:");
+  //Serial.println("Basic Encoder Test:");
 }
 
 long oldPosition  = -999;
 long const limit = 0x00100000;
 
-void loop() {
+void loop(){
   long newPosition = myEnc.read();
+   // newposition = (char *)myEnc.read(); 
  
-    if(newPosition > limit){
+   if(newPosition > limit){
         newPosition -= limit;
-
-    }
-      Serial.println(newPosition);
-  }
+   }
+      //Serial.println(newPosition);
+   Serial.write((char*)newPosition, sizeof(newPosition));
+ }
