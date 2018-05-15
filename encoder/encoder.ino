@@ -29,6 +29,8 @@ void loop()
     newPosition -= limit;
   }
 
-  //Serial.println(newPosition);
-  Serial.write((char *)newPosition, sizeof(newPosition));
+  Serial.println(newPosition);
+  delay(50);
+  Serial.write((char *)newPosition, sizeof(long));
+  Serial.write('\n');
 }
