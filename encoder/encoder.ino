@@ -5,6 +5,7 @@
  */
 
 #include <Encoder.h>
+#include <cmath>
 
 // Change these two numbers to the pins connected to your encoder.
 //   Best Performance: both pins have interrupt capability
@@ -18,12 +19,12 @@ void setup()
   Serial.begin(9600);
 }
 
-long const limit = 0x000001000; // 4096
-// long const limit = 0x00100000; // 2^20
+//long const limit = 0x000001000; // 4096
+ long const limit = 0x00100000; // 2^20
 
 void loop()
 {
-  long newPosition = encoder.read();
+  long newPosition = abs(encoder.read());
 
   if (newPosition > limit)
   {
