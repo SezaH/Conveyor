@@ -12,15 +12,15 @@
 //   Good Performance: only the first pin has interrupt capability
 //   Low Performance:  neither pin has interrupt capability
 Encoder encoder(5, 6);
-//   avoid using pins with LEDs attached
 
 void setup()
 {
   Serial.begin(9600);
+  pinMode(13, OUTPUT);
+  digitalWrite(13,HIGH);
 }
 
-//long const limit = 0x000001000; // 4096
- long const limit = 0x00100000; // 2^20
+long const limit = 0x00100000; // 2^20
 
 void loop()
 {
@@ -34,8 +34,7 @@ void loop()
 
   if (Serial.available())
   {
-    while (Serial.read() > 0)
-      ;
+    while (Serial.read() > 0);
 
     Serial.println(newPosition, DEC);
   }
